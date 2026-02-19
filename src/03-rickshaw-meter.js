@@ -31,7 +31,7 @@
  *      - Example: calculateSurge(73, 1.8) => 132 (Math.ceil(131.4))
  *
  *   4. findCheapestAndCostliest(...fares)
- *      - Rest parameter (...) se variable number of fares le
+ *      - Rest parameter (...) se variable number of fares le 
  *      - Math.min() aur Math.max() se cheapest aur costliest dhundho
  *      - Non-number values filter out karo
  *      - Agar koi valid number nahi mila, return null
@@ -51,21 +51,49 @@
  *   findCheapestAndCostliest(150, 80, 200) // => { cheapest: 80, costliest: 200 }
  */
 export function parseFare(fareString) {
-  // Your code here
+  if(typeof fareString !== "string"){
+    return -1
+  }
+  const totalFare = parseFloat(fareString)
+  if(Number.isNaN(totalFare)){
+    return -1
+  }
+    return totalFare
+  
 }
 
 export function roundFare(amount, decimalPlaces) {
-  // Your code here
+  if(typeof amount !== "number" || typeof decimalPlaces !== "number" || !Number.isInteger(decimalPlaces) || decimalPlaces <0){
+    return ""
+  }
+  return amount.toFixed(decimalPlaces);
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
-  // Your code here
+  if(typeof baseFare !== "number" ||typeof surgeMultiplier !== "number" || baseFare <=0 || surgeMultiplier <=0){
+    return 0
+  }
+  return Math.ceil(baseFare*surgeMultiplier);
 }
 
 export function findCheapestAndCostliest(...fares) {
-  // Your code here
+  const validFares = fares.filter(fares => typeof fares === "number" && !Number.isNaN(fares));
+
+  if (validFares.length === 0){
+    return null
+  }
+  return{
+    cheapest : Math.min(...validFares),
+    costliest : Math.max(...validFares)
+  }
 }
 
 export function getDistanceDifference(from, to) {
-  // Your code here
+  const parsedFrom = parseInt(from,10)
+  const parsedTo = parseInt(to,10)
+
+  if (Number.isNaN(parsedFrom) || Number.isNaN(parsedTo)) {
+    return -1;
+  }
+  return Math.abs(parsedFrom - parsedTo);
 }
